@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>ClockPicker</title>
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="dist/bootstrap-clockpicker.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/github.min.css">
+<style type="text/css">
+.navbar h3 {
+	color: #f5f5f5;
+	margin-top: 14px;
+}
+.hljs-pre {
+	background: #f8f8f8;
+	padding: 3px;
+}
+.footer {
+	border-top: 1px solid #eee;
+	margin-top: 40px;
+	padding: 40px 0;
+}
+.input-group {
+	width: 110px;
+	margin-bottom: 10px;
+}
+.pull-center {
+	margin-left: 0px;
+	margin-right: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+@media (max-width: 767px) {
+  .pull-center {
+    float: right;
+  }
+}
+</style>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="assets/js/html5shiv.js"></script>
+  <script src="assets/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+
+
+<div class="container">
+	<div class="form-group">
+<!--
+                <h4> Local time: </h4>
+                <label id="lblTime" style=" font-weight:bold" class=""></label>
+-->
+		<h4>Pick alarm time:</h4>
+		<div class="clearfix">
+			<div class="input-group clockpicker-yad data-placement="bottom" data-align="top" data-autoclose="false">
+				<input type="text" class="form-control" value="">
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-time"></span>
+				</span>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="dist/bootstrap-clockpicker.min.js"></script>
+<script type="text/javascript">
+$('.clockpicker').clockpicker()
+	.find('input').change(function(){
+		console.log(this.value);
+	});
+var input = $('#single-input').clockpicker({
+	placement: 'bottom',
+	align: 'left',
+	autoclose: true,
+	'default': 'now'
+});
+
+$('.clockpicker-yad').clockpicker({
+		donetext: 'Done',
+		init: function() { 
+                        //Set current time +1 on init
+                        var now = new Date();
+                        var minute = (now.getMinutes()+1);
+                        var hour = (now.getHours());
+                        if (hour   < 10) { hour   = "0" + hour;   }
+                        if (minute < 10) { minute = "0" + minute; }
+                        var time = (hour)+":"+(minute) ;
+                        $('input[class=form-control]').val(time);
+		}
+	})
+	.find('input[class=form-control]').change(function(){
+                var clock = "time set to: "+this.value;
+		console.log(clock);
+        document.write(clock);
+	});
+
+// Manually toggle to the minutes view
+$('#check-minutes').click(function(e){
+	// Have to stop propagation here
+	e.stopPropagation();
+	input.clockpicker('show')
+			.clockpicker('toggleView', 'minutes');
+});
+if (/mobile/i.test(navigator.userAgent)) {
+	$('input').prop('readOnly', true);
+}
+</script>
+<!--
+ <script type="text/javascript">  
+        // datetime make using jquery  
+        $(document)  
+            .ready(function ()  
+            {  
+                ShowTime();  
+            });  
+  
+        function ShowTime()  
+        {  
+            var dt = new Date();  
+            document.getElementById("lblTime")  
+                .innerHTML = dt.toLocaleTimeString();  
+            window.setTimeout("ShowTime()", 1000); // Here 1000(milliseconds) means one 1 Sec  
+        }  
+        </script> 
+-->
+<script type="text/javascript" src="assets/js/highlight.min.js"></script>
+<script type="text/javascript">
+hljs.configure({tabReplace: '    '});
+hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>

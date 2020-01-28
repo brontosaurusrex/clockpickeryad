@@ -1,0 +1,19 @@
+#!/bin/bash
+
+actual_path=$(readlink -f "${BASH_SOURCE[0]}")
+script_dir=$(dirname "$actual_path")
+
+cd "$script_dir" || exit
+
+# stdbuf -oL -eL 
+stdbuf -oL -eL yad --title="when" --uri="yad.html" --html --print-uri --width=800 --height=600 --no-buttons 2>&1 | while read -r stuff 
+
+do
+ 
+    #[ "$stuff" != ""  ] && echo "$stuff"
+    echo "$stuff"
+
+done
+
+
+
